@@ -8,8 +8,8 @@
   --color-background: #f8f9fa;
   --color-surface: #ffffff;
   --color-text-primary: #343a40;
-  --color-text-secondary: #6c757d;
-  --color-border: #dde5ec;
+  --color-text-secondary: #596c7c;
+  --color-border: #cad2da;
   /* --- ADDED: Lighter border color --- */
   --color-border-light: #c3cfdb;
   --color-accent: #17a2b8; /* Teal */
@@ -18,7 +18,7 @@
   /* --- ADDED: Danger colors --- */
   --color-danger: #dc3545; /* Red for remove */
   --color-danger-hover: #c82333; /* Darker red */
-  --border-radius: 7px; /* Keep your preferred radius */
+  --border-radius: 8px; /* Keep your preferred radius */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
   --base-font-size: 1rem;
@@ -109,7 +109,7 @@
 /* Set large max-height when open */
 .accordion-item.open > .accordion-content {
   /* Needs to be larger than the tallest possible content */
-  max-height: 2000px;
+  max-height: 8000px;
 }
 
 .accordion-content-inner {
@@ -154,13 +154,42 @@
   font-weight: 600;
   color: var(--color-text-secondary);
 }
+.form-group-two {
+  display: flex;
+  gap: 0.5rem;
+}
+.form-group-two label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+.company-field {
+  flex: 1;
+}
+.size-team {
+  flex: 0.9;
+}
+.bullet-points-editor {
+  margin-top: 1rem;
+}
+.bullet-point-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.bullet-point-input-group > textarea {
+  flex: 1;
+  resize: vertical;
+}
 
 /* --- MODIFIED: Added select to this rule --- */
 .form-group input[type='text'],
 .form-group input[type='email'],
 .form-group input[type='tel'],
 .form-group input[type='url'],
-.form-group select {
+.form-group-two input[type='text'],
+.form-group select,
+.bullet-point-input-group > textarea {
   /* Added select */
   width: 100%;
   padding: var(--input-padding-y) var(--input-padding-x);
@@ -200,13 +229,17 @@
 }
 /* --- END ADDED: Select Styles --- */
 
-.form-group input::placeholder {
+.form-group input::placeholder,
+.form-group-two input::placeholder,
+.bullet-point-input-group > textarea::placeholder {
   color: #adb5bd;
 }
 
 /* --- MODIFIED: Added select to focus rule --- */
 .form-group input:focus,
-.form-group select:focus {
+.form-group-two input:focus,
+.form-group select:focus,
+.bullet-point-input-group > textarea:focus {
   /* Added select */
   outline: none;
   border-color: var(--color-accent);
@@ -224,6 +257,12 @@
   justify-content: flex-end;
   /* CHANGE 4a: Removed border-top */
   /* border-top: 1px dashed var(--color-border); */
+}
+.edit-entry {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
 }
 /* ADDED: Container for Add/Save buttons */
 .section-actions {
@@ -254,7 +293,8 @@
 /* ADDED: .add-button to shared rule */
 .submit-button,
 .add-button,
-.remove-button {
+.remove-button,
+.add-bullet {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -272,12 +312,14 @@
 }
 .submit-button:active,
 .add-button:active,
-.remove-button:active {
+.remove-button:active,
+.add-bullet:active {
   transform: translateY(1px);
 }
 .submit-button i,
 .add-button i,
-.remove-button i {
+.remove-button i,
+.add-bullet i {
   font-size: 0.9em;
   line-height: 1;
 }
@@ -317,7 +359,8 @@
 /* --- END ADDED: Add Button Styles --- */
 
 /* --- MODIFIED: Remove Button Styles --- */
-.remove-button {
+.remove-button,
+.add-bullet {
   /* Inherits from shared rule */
   background-color: transparent;
   /* CHANGE 2: Start with secondary text color and light border */
@@ -334,11 +377,20 @@
   border-color: rgba(220, 53, 69, 0.2);
   box-shadow: none;
 }
+.add-bullet:hover {
+  background-color: #16bcd515;
+  color: var(--color-accent);
+  border-color: #12abc375;
+  box-shadow: none;
+}
 /* ADDED: Icon styling for remove button */
-.remove-button i {
-  margin-right: 0.3rem;
+.remove-button i,
+.add-bullet i {
   color: var(--color-text-secondary); /* Default icon color */
   transition: color 0.2s ease; /* Transition icon color */
+}
+.add-bullet:hover i {
+  color: var(--color-accent);
 }
 .remove-button:hover i {
   color: var(--color-danger); /* Icon color matches text on hover */

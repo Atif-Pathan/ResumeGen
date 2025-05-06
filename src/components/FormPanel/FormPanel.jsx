@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PersonalInfoForm from './PersonalInfoForm.jsx';
 // Import other form components when ready
 import EducationForm from './EducationForm.jsx';
-// import ExperienceForm from './ExperienceForm.jsx';
+import ExperienceForm from './ExperienceForm.jsx';
 // import ProjectsForm from './ProjectsForm.jsx';
 // import SkillsForm from './SkillsForm.jsx';
 import '../../styles/FormPanel.css'; // Ensure this path is correct
@@ -23,7 +23,7 @@ const formSections = [
   {
     key: 'experience',
     title: 'Experience',
-    // component: ExperienceForm, // Uncomment when ready
+    component: ExperienceForm,
   },
   {
     key: 'projects',
@@ -46,12 +46,6 @@ function FormPanel(props) {
     setEducation,
     experience,
     setExperience,
-    addExperienceItem,
-    removeExperienceItem,
-    updateExperienceItem,
-    addExperienceBulletPoint,
-    removeExperienceBulletPoint,
-    updateExperienceBulletPoint,
     projects,
     setProjects,
     addProjectItem,
@@ -88,12 +82,6 @@ function FormPanel(props) {
     experience: {
       experience,
       setExperience,
-      addExperienceItem,
-      removeExperienceItem,
-      updateExperienceItem,
-      addExperienceBulletPoint,
-      removeExperienceBulletPoint,
-      updateExperienceBulletPoint,
     },
     projects: {
       projects,

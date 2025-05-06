@@ -136,80 +136,80 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  const addExperienceItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      company: '',
-      productOrTeam: '',
-      title: '',
-      teamSize: null,
-      location: '',
-      startDate: '',
-      endDate: '',
-      bulletPoints: [],
-    };
-    setExperience((prevExperience) => [...prevExperience, newItem]);
-  };
-  const removeExperienceItem = (id) => {
-    setExperience((prevExperience) => {
-      return prevExperience.filter((item) => item.id !== id);
-    });
-  };
-  const updateExperienceItem = (id, field, value) => {
-    setExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === id) {
-          return { ...exp, [field]: value };
-        }
-        return exp;
-      })
-    );
-  };
-  const addExperienceBulletPoint = (experienceId) => {
-    setExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
-          // Create a new bulletPoints array with an added empty string
-          const updatedBulletPoints = [...exp.bulletPoints, ''];
-          // Return a new experience object with the updated bulletPoints
-          return { ...exp, bulletPoints: updatedBulletPoints };
-        }
-        return exp; // Return other items unchanged
-      })
-    );
-  };
-  const removeExperienceBulletPoint = (experienceId, bulletIndex) => {
-    setExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
-          // Create a new bulletPoints array excluding the one at bulletIndex
-          const updatedBulletPoints = exp.bulletPoints.filter(
-            (_, index) => index !== bulletIndex // Filter based on index
-          );
-          // Return a new experience object with the updated bulletPoints
-          return { ...exp, bulletPoints: updatedBulletPoints };
-        }
-        return exp; // Return other items unchanged
-      })
-    );
-  };
-  const updateExperienceBulletPoint = (experienceId, bulletIndex, value) => {
-    setExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
-          // Create a new bulletPoints array by mapping over the old one
-          const updatedBulletPoints = exp.bulletPoints.map((bullet, index) => {
-            // If the index matches the bulletIndex, update the value
-            // Otherwise, keep the existing bullet point
-            return index === bulletIndex ? value : bullet;
-          });
-          // Return a new experience object with the updated bulletPoints
-          return { ...exp, bulletPoints: updatedBulletPoints };
-        }
-        return exp; // Return other items unchanged
-      })
-    );
-  };
+  // const addExperienceItem = () => {
+  //   const newItem = {
+  //     id: uuidv4(),
+  //     company: '',
+  //     productOrTeam: '',
+  //     title: '',
+  //     teamSize: null,
+  //     location: '',
+  //     startDate: '',
+  //     endDate: '',
+  //     bulletPoints: [],
+  //   };
+  //   setExperience((prevExperience) => [...prevExperience, newItem]);
+  // };
+  // const removeExperienceItem = (id) => {
+  //   setExperience((prevExperience) => {
+  //     return prevExperience.filter((item) => item.id !== id);
+  //   });
+  // };
+  // const updateExperienceItem = (id, field, value) => {
+  //   setExperience((prevExperience) =>
+  //     prevExperience.map((exp) => {
+  //       if (exp.id === id) {
+  //         return { ...exp, [field]: value };
+  //       }
+  //       return exp;
+  //     })
+  //   );
+  // };
+  // const addExperienceBulletPoint = (experienceId) => {
+  //   setExperience((prevExperience) =>
+  //     prevExperience.map((exp) => {
+  //       if (exp.id === experienceId) {
+  //         // Create a new bulletPoints array with an added empty string
+  //         const updatedBulletPoints = [...exp.bulletPoints, ''];
+  //         // Return a new experience object with the updated bulletPoints
+  //         return { ...exp, bulletPoints: updatedBulletPoints };
+  //       }
+  //       return exp; // Return other items unchanged
+  //     })
+  //   );
+  // };
+  // const removeExperienceBulletPoint = (experienceId, bulletIndex) => {
+  //   setExperience((prevExperience) =>
+  //     prevExperience.map((exp) => {
+  //       if (exp.id === experienceId) {
+  //         // Create a new bulletPoints array excluding the one at bulletIndex
+  //         const updatedBulletPoints = exp.bulletPoints.filter(
+  //           (_, index) => index !== bulletIndex // Filter based on index
+  //         );
+  //         // Return a new experience object with the updated bulletPoints
+  //         return { ...exp, bulletPoints: updatedBulletPoints };
+  //       }
+  //       return exp; // Return other items unchanged
+  //     })
+  //   );
+  // };
+  // const updateExperienceBulletPoint = (experienceId, bulletIndex, value) => {
+  //   setExperience((prevExperience) =>
+  //     prevExperience.map((exp) => {
+  //       if (exp.id === experienceId) {
+  //         // Create a new bulletPoints array by mapping over the old one
+  //         const updatedBulletPoints = exp.bulletPoints.map((bullet, index) => {
+  //           // If the index matches the bulletIndex, update the value
+  //           // Otherwise, keep the existing bullet point
+  //           return index === bulletIndex ? value : bullet;
+  //         });
+  //         // Return a new experience object with the updated bulletPoints
+  //         return { ...exp, bulletPoints: updatedBulletPoints };
+  //       }
+  //       return exp; // Return other items unchanged
+  //     })
+  //   );
+  // };
 
   // State variable to hold the data for projects + helpers to update it
   const [projects, setProjects] = useState([
@@ -419,12 +419,12 @@ function ResumeBuilder() {
         // updateEducationItem={updateEducationItem}
         experience={experience}
         setExperience={handleExperienceSubmit}
-        addExperienceItem={addExperienceItem}
-        removeExperienceItem={removeExperienceItem}
-        updateExperienceItem={updateExperienceItem}
-        addExperienceBulletPoint={addExperienceBulletPoint}
-        removeExperienceBulletPoint={removeExperienceBulletPoint}
-        updateExperienceBulletPoint={updateExperienceBulletPoint}
+        // addExperienceItem={addExperienceItem}
+        // removeExperienceItem={removeExperienceItem}
+        // updateExperienceItem={updateExperienceItem}
+        // addExperienceBulletPoint={addExperienceBulletPoint}
+        // removeExperienceBulletPoint={removeExperienceBulletPoint}
+        // updateExperienceBulletPoint={updateExperienceBulletPoint}
         projects={projects}
         setProjects={handleProjectsSubmit}
         addProjectItem={addProjectItem}
