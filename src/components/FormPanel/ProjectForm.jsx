@@ -2,16 +2,16 @@
 import { useState, useEffect } from 'react'; // Import React
 import { v4 as uuidv4 } from 'uuid';
 
-function ExperienceForm({
-  experience, // Initial array from ResumeBuilder props
-  setExperience, // Function to update the state in ResumeBuilder
+function ProjectForm({
+  project, // Initial array from ResumeBuilder props
+  setProject, // Function to update the state in ResumeBuilder
 }) {
-  const [localExperience, setLocalExperience] = useState(experience);
-  console.log(localExperience);
+  const [localProject, setlocalProject] = useState(project);
+  console.log(localProject);
 
   useEffect(() => {
-    setLocalExperience(experience);
-  }, [experience]);
+    setlocalProject(project);
+  }, [project]);
 
   const addExperienceItem = () => {
     const newItem = {
@@ -25,18 +25,18 @@ function ExperienceForm({
       endDate: '',
       bulletPoints: [],
     };
-    setLocalExperience((prevExperience) => [...prevExperience, newItem]);
+    setlocalProject((prevProject) => [...prevProject, newItem]);
   };
 
   const removeExperienceItem = (id) => {
-    setLocalExperience((prevExperience) => {
-      return prevExperience.filter((item) => item.id !== id);
+    setlocalProject((prevProject) => {
+      return prevProject.filter((item) => item.id !== id);
     });
   };
 
   const updateExperienceItem = (id, field, value) => {
-    setLocalExperience((prevExperience) =>
-      prevExperience.map((exp) => {
+    setlocalProject((prevProject) =>
+      prevProject.map((exp) => {
         if (exp.id === id) {
           return { ...exp, [field]: value };
         }
@@ -45,13 +45,13 @@ function ExperienceForm({
     );
   };
 
-  const addExperienceBulletPoint = (experienceId) => {
-    setLocalExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
+  const addExperienceBulletPoint = (projectId) => {
+    setlocalProject((prevProject) =>
+      prevProject.map((exp) => {
+        if (exp.id === projectId) {
           // Create a new bulletPoints array with an added empty string
           const updatedBulletPoints = [...exp.bulletPoints, ''];
-          // Return a new experience object with the updated bulletPoints
+          // Return a new project object with the updated bulletPoints
           return { ...exp, bulletPoints: updatedBulletPoints };
         }
         return exp; // Return other items unchanged
@@ -59,15 +59,15 @@ function ExperienceForm({
     );
   };
 
-  const removeExperienceBulletPoint = (experienceId, bulletIndex) => {
-    setLocalExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
+  const removeExperienceBulletPoint = (projectId, bulletIndex) => {
+    setlocalProject((prevProject) =>
+      prevProject.map((exp) => {
+        if (exp.id === projectId) {
           // Create a new bulletPoints array excluding the one at bulletIndex
           const updatedBulletPoints = exp.bulletPoints.filter(
             (_, index) => index !== bulletIndex // Filter based on index
           );
-          // Return a new experience object with the updated bulletPoints
+          // Return a new project object with the updated bulletPoints
           return { ...exp, bulletPoints: updatedBulletPoints };
         }
         return exp; // Return other items unchanged
@@ -75,17 +75,17 @@ function ExperienceForm({
     );
   };
 
-  const updateExperienceBulletPoint = (experienceId, bulletIndex, value) => {
-    setLocalExperience((prevExperience) =>
-      prevExperience.map((exp) => {
-        if (exp.id === experienceId) {
+  const updateExperienceBulletPoint = (projectId, bulletIndex, value) => {
+    setlocalProject((prevProject) =>
+      prevProject.map((exp) => {
+        if (exp.id === projectId) {
           // Create a new bulletPoints array by mapping over the old one
           const updatedBulletPoints = exp.bulletPoints.map((bullet, index) => {
             // If the index matches the bulletIndex, update the value
             // Otherwise, keep the existing bullet point
             return index === bulletIndex ? value : bullet;
           });
-          // Return a new experience object with the updated bulletPoints
+          // Return a new project object with the updated bulletPoints
           return { ...exp, bulletPoints: updatedBulletPoints };
         }
         return exp; // Return other items unchanged
@@ -95,14 +95,14 @@ function ExperienceForm({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setExperience(localExperience);
-    console.log('Experience section submitted:', localExperience); // Added console log
+    setProject(localProject);
+    console.log('Project section submitted:', localProject); // Added console log
   };
 
   return (
     <form className='form-section' onSubmit={handleSubmit}>
       {/* Map over the LOCAL state to render form entries */}
-      {localExperience.map((expItem) => (
+      {localProject.map((expItem) => (
         <div key={expItem.id} className='experience-entry form-entry-box'>
           <div className='form-grid-layout'>
             {/* Company */}
@@ -162,7 +162,6 @@ function ExperienceForm({
                   )
                 }
                 placeholder='e.g., ResumeBuilder App'
-                required
               />
             </div>
 
@@ -182,7 +181,6 @@ function ExperienceForm({
                   )
                 }
                 placeholder='e.g. Full-Stack Developer'
-                required
               />
             </div>
 
@@ -202,7 +200,6 @@ function ExperienceForm({
                   )
                 }
                 placeholder='e.g. San Francisco, CA'
-                required
               />
             </div>
 
@@ -264,6 +261,7 @@ function ExperienceForm({
                   }
                   placeholder={`Bullet point ${bulletIndex + 1}`}
                   rows={3}
+                  required
                 />
                 <button
                   type='button'
@@ -299,7 +297,7 @@ function ExperienceForm({
                 type='button'
                 className='remove-button' // Use specific class
                 onClick={() => removeExperienceItem(expItem.id)}
-                title='Remove this experience entry'
+                title='Remove this project entry'
               >
                 <i className='fas fa-trash'></i> Remove
               </button>
@@ -317,7 +315,7 @@ function ExperienceForm({
           className='add-button' // Use specific class
           onClick={addExperienceItem}
         >
-          <i className='fas fa-plus'></i> Add Experience
+          <i className='fas fa-plus'></i> Add project
         </button>
 
         {/* Section Save Button */}
@@ -330,4 +328,4 @@ function ExperienceForm({
   );
 }
 
-export default ExperienceForm;
+export default ProjectForm;

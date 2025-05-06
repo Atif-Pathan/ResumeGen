@@ -20,7 +20,7 @@ function ResumeBuilder() {
     setUpdateCounter((c) => c + 1); // Increment counter
   };
   const handleProjectsSubmit = (newProjects) => {
-    setProjects(newProjects);
+    setProject(newProjects);
     setUpdateCounter((c) => c + 1); // Increment counter
   };
   const handleSkillsSubmit = (newSkills) => {
@@ -212,14 +212,14 @@ function ResumeBuilder() {
   // };
 
   // State variable to hold the data for projects + helpers to update it
-  const [projects, setProjects] = useState([
+  const [project, setProject] = useState([
     {
       id: uuidv4(),
       company: 'The Odin Project',
-      productOrTeam: null,
-      title: null,
-      teamSize: null,
-      location: null,
+      productOrTeam: '',
+      title: '',
+      teamSize: '',
+      location: '',
       startDate: 'Jun 2024',
       endDate: 'Present',
       bulletPoints: [
@@ -230,7 +230,7 @@ function ResumeBuilder() {
     {
       id: uuidv4(),
       company: 'Flight Reservation WebApp',
-      productOrTeam: null,
+      productOrTeam: '',
       title: 'Software Developer',
       teamSize: 4,
       location: 'Calgary, AB',
@@ -243,75 +243,75 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  const addProjectItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      company: '',
-      productOrTeam: '',
-      title: '',
-      teamSize: null,
-      location: '',
-      startDate: '',
-      endDate: '',
-      bulletPoints: [],
-    };
-    setProjects((prevProjects) => [...prevProjects, newItem]);
-  };
-  const removeProjectItem = (id) => {
-    setProjects((prevProjects) => {
-      return prevProjects.filter((proj) => proj.id !== id);
-    });
-  };
-  const updateProjectItem = (id, field, value) => {
-    setProjects((prevProjects) => {
-      return prevProjects.map((proj) => {
-        return proj.id === id ? { ...proj, [field]: value } : proj;
-      });
-    });
-  };
-  const addProjectBulletPoint = (projectId) => {
-    setProjects((prevProjects) => {
-      return prevProjects.map((proj) => {
-        if (proj.id === projectId) {
-          const updatedBulletPoints = [...proj.bulletPoints, ''];
-          return { ...proj, bulletPoints: updatedBulletPoints };
-        } else {
-          // return the project unchanged if it doesn't match
-          return proj;
-        }
-      });
-    });
-  };
-  const removeProjectBulletPoint = (projectId, bulletIndex) => {
-    setProjects((prevProjects) => {
-      return prevProjects.map((proj) => {
-        if (proj.id === projectId) {
-          const updatedBulletPoints = proj.bulletPoints.filter(
-            (_, index) => index !== bulletIndex
-          );
-          return { ...proj, bulletPoints: updatedBulletPoints };
-        } else {
-          // return the project unchanged if it doesn't match
-          return proj;
-        }
-      });
-    });
-  };
-  const updateProjectBulletPoint = (projectId, bulletIndex, value) => {
-    setProjects((prevProjects) => {
-      return prevProjects.map((proj) => {
-        if (proj.id === projectId) {
-          const updatedBulletPoints = proj.bulletPoints.map((bullet, index) => {
-            return index === bulletIndex ? value : bullet;
-          });
-          return { ...proj, bulletPoints: updatedBulletPoints };
-        } else {
-          // return the project unchanged if it doesn't match
-          return proj;
-        }
-      });
-    });
-  };
+  // const addProjectItem = () => {
+  //   const newItem = {
+  //     id: uuidv4(),
+  //     company: '',
+  //     productOrTeam: '',
+  //     title: '',
+  //     teamSize: null,
+  //     location: '',
+  //     startDate: '',
+  //     endDate: '',
+  //     bulletPoints: [],
+  //   };
+  //   setProjects((prevProjects) => [...prevProjects, newItem]);
+  // };
+  // const removeProjectItem = (id) => {
+  //   setProjects((prevProjects) => {
+  //     return prevProjects.filter((proj) => proj.id !== id);
+  //   });
+  // };
+  // const updateProjectItem = (id, field, value) => {
+  //   setProjects((prevProjects) => {
+  //     return prevProjects.map((proj) => {
+  //       return proj.id === id ? { ...proj, [field]: value } : proj;
+  //     });
+  //   });
+  // };
+  // const addProjectBulletPoint = (projectId) => {
+  //   setProjects((prevProjects) => {
+  //     return prevProjects.map((proj) => {
+  //       if (proj.id === projectId) {
+  //         const updatedBulletPoints = [...proj.bulletPoints, ''];
+  //         return { ...proj, bulletPoints: updatedBulletPoints };
+  //       } else {
+  //         // return the project unchanged if it doesn't match
+  //         return proj;
+  //       }
+  //     });
+  //   });
+  // };
+  // const removeProjectBulletPoint = (projectId, bulletIndex) => {
+  //   setProjects((prevProjects) => {
+  //     return prevProjects.map((proj) => {
+  //       if (proj.id === projectId) {
+  //         const updatedBulletPoints = proj.bulletPoints.filter(
+  //           (_, index) => index !== bulletIndex
+  //         );
+  //         return { ...proj, bulletPoints: updatedBulletPoints };
+  //       } else {
+  //         // return the project unchanged if it doesn't match
+  //         return proj;
+  //       }
+  //     });
+  //   });
+  // };
+  // const updateProjectBulletPoint = (projectId, bulletIndex, value) => {
+  //   setProjects((prevProjects) => {
+  //     return prevProjects.map((proj) => {
+  //       if (proj.id === projectId) {
+  //         const updatedBulletPoints = proj.bulletPoints.map((bullet, index) => {
+  //           return index === bulletIndex ? value : bullet;
+  //         });
+  //         return { ...proj, bulletPoints: updatedBulletPoints };
+  //       } else {
+  //         // return the project unchanged if it doesn't match
+  //         return proj;
+  //       }
+  //     });
+  //   });
+  // };
 
   const [skills, setSkills] = useState([
     {
@@ -425,14 +425,14 @@ function ResumeBuilder() {
         // addExperienceBulletPoint={addExperienceBulletPoint}
         // removeExperienceBulletPoint={removeExperienceBulletPoint}
         // updateExperienceBulletPoint={updateExperienceBulletPoint}
-        projects={projects}
-        setProjects={handleProjectsSubmit}
-        addProjectItem={addProjectItem}
-        removeProjectItem={removeProjectItem}
-        updateProjectItem={updateProjectItem}
-        addProjectBulletPoint={addProjectBulletPoint}
-        removeProjectBulletPoint={removeProjectBulletPoint}
-        updateProjectBulletPoint={updateProjectBulletPoint}
+        project={project}
+        setProject={handleProjectsSubmit}
+        // addProjectItem={addProjectItem}
+        // removeProjectItem={removeProjectItem}
+        // updateProjectItem={updateProjectItem}
+        // addProjectBulletPoint={addProjectBulletPoint}
+        // removeProjectBulletPoint={removeProjectBulletPoint}
+        // updateProjectBulletPoint={updateProjectBulletPoint}
         skills={skills}
         setSkills={handleSkillsSubmit}
         addSkillsItem={addSkillsItem}
@@ -447,7 +447,7 @@ function ResumeBuilder() {
           personalInfo={personalInfo}
           education={education}
           experience={experience}
-          projects={projects}
+          project={project}
           skills={skills}
         />
       </div>

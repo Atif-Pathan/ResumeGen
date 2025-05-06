@@ -17,7 +17,7 @@ function PDFPreview({
   personalInfo,
   education,
   experience,
-  projects,
+  project,
   skills,
 }) {
   return (
@@ -26,7 +26,7 @@ function PDFPreview({
         personalInfo={personalInfo}
         education={education}
         experience={experience}
-        projects={projects}
+        project={project}
         skills={skills}
       />
     </PDFViewer>

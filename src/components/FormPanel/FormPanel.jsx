@@ -4,7 +4,7 @@ import PersonalInfoForm from './PersonalInfoForm.jsx';
 // Import other form components when ready
 import EducationForm from './EducationForm.jsx';
 import ExperienceForm from './ExperienceForm.jsx';
-// import ProjectsForm from './ProjectsForm.jsx';
+import ProjectForm from './ProjectForm.jsx';
 // import SkillsForm from './SkillsForm.jsx';
 import '../../styles/FormPanel.css'; // Ensure this path is correct
 
@@ -26,9 +26,9 @@ const formSections = [
     component: ExperienceForm,
   },
   {
-    key: 'projects',
-    title: 'Projects',
-    // component: ProjectsForm, // Uncomment when ready
+    key: 'project',
+    title: 'Project',
+    component: ProjectForm,
   },
   {
     key: 'skills',
@@ -46,14 +46,8 @@ function FormPanel(props) {
     setEducation,
     experience,
     setExperience,
-    projects,
-    setProjects,
-    addProjectItem,
-    removeProjectItem,
-    updateProjectItem,
-    addProjectBulletPoint,
-    removeProjectBulletPoint,
-    updateProjectBulletPoint,
+    project,
+    setProject,
     skills,
     setSkills,
     addSkillsItem,
@@ -83,15 +77,9 @@ function FormPanel(props) {
       experience,
       setExperience,
     },
-    projects: {
-      projects,
-      setProjects,
-      addProjectItem,
-      removeProjectItem,
-      updateProjectItem,
-      addProjectBulletPoint,
-      removeProjectBulletPoint,
-      updateProjectBulletPoint,
+    project: {
+      project,
+      setProject,
     },
     skills: {
       skills,

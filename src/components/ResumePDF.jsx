@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
 });
 
 // The main PDF Document Component
-function ResumePDF({ personalInfo, education, experience, projects, skills }) {
+function ResumePDF({ personalInfo, education, experience, project, skills }) {
   const documentTitle = `${personalInfo.name} - Generated Resume`;
 
   // Helper function to check if an array is valid and non-empty
@@ -205,10 +205,10 @@ function ResumePDF({ personalInfo, education, experience, projects, skills }) {
         )}
 
         {/* --- Projects Section (Conditionally Rendered) --- */}
-        {hasItems(projects) && (
+        {hasItems(project) && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Projects</Text>
-            {projects.map((proj) => (
+            {project.map((proj) => (
               <View key={proj.id} style={styles.itemEntry}>
                 <View style={styles.itemHeader}>
                   <Text style={styles.itemTitle}>
