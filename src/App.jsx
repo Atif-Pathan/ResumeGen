@@ -1,7 +1,12 @@
 import './App.css';
+import ResumeBuilder from './components/ResumeBuilder';
 
 function App() {
-  return <>Hello world!</>;
+  return (
+    <>
+      <ResumeBuilder />
+    </>
+  );
 }
 
 export default App;

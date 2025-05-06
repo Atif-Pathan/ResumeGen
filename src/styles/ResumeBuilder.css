@@ -1,0 +1,15 @@
+.resume-builder {
+  display: flex;
+  /* background-color: burlywood; */
+  width: 100vw;
+  min-height: 100vh;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.pdf-preview-panel {
+  flex: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
