@@ -2,6 +2,7 @@ function PersonalInfoForm({ personalInfo, setPersonalInfo }) {
   function personalInformation(formData) {
     const updatedInfo = Object.fromEntries(formData.entries());
     setPersonalInfo(updatedInfo);
+    console.log('personal info set');
   }
 
   return (

@@ -5,31 +5,27 @@ import {
   View,
   Link,
   StyleSheet,
-  Font, // Import Font if you plan to use custom fonts later
+  Font,
 } from '@react-pdf/renderer';
 
-// Optional: Register custom fonts if needed later
-// Font.register({ family: 'Open Sans', fonts: [...] });
-
-// Create basic styles for structure and readability
+// --- Styles remain the same ---
 const styles = StyleSheet.create({
   page: {
     paddingTop: 35,
     paddingBottom: 65,
     paddingHorizontal: 35,
-    fontFamily: 'Helvetica', // Default font
-    fontSize: 10, // Default font size
+    fontFamily: 'Helvetica',
+    fontSize: 10,
     lineHeight: 1.4,
   },
-  // --- Header Styles ---
   headerContainer: {
     textAlign: 'center',
     marginBottom: 20,
   },
   name: {
-    fontSize: 18,
+    fontSize: 24, // Adjusted size
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 15, // Adjusted margin
   },
   contactInfo: {
     flexDirection: 'row',
@@ -39,15 +35,14 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   contactItem: {
-    marginHorizontal: 5,
-    textDecoration: 'none', // For links
-    color: 'black', // Default link color
+    marginHorizontal: 2, // Adjusted spacing
+    textDecoration: 'none',
+    color: 'black',
   },
   additionalInfo: {
     fontSize: 9,
-    marginTop: 2,
+    marginTop: 0, // Adjusted margin
   },
-  // --- Section Styles ---
   section: {
     marginBottom: 15,
   },
@@ -60,7 +55,6 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     textTransform: 'uppercase',
   },
-  // --- Education Styles ---
   educationEntry: {
     marginBottom: 8,
   },
@@ -73,7 +67,6 @@ const styles = StyleSheet.create({
   institutionLine: {
     fontStyle: 'italic',
   },
-  // --- Experience/Project Styles ---
   itemEntry: {
     marginBottom: 10,
   },
@@ -85,9 +78,7 @@ const styles = StyleSheet.create({
   itemTitle: {
     fontWeight: 'bold',
   },
-  itemCompany: {
-    // Style if needed
-  },
+  itemCompany: {},
   itemLocation: {
     fontSize: 9,
     fontStyle: 'italic',
@@ -97,26 +88,29 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   bulletPoint: {
-    marginLeft: 10, // Indent bullet points
+    marginLeft: 10,
     marginBottom: 2,
   },
-  // --- Skills Styles ---
   skillsCategory: {
     marginBottom: 5,
   },
   skillsCategoryTitle: {
     fontWeight: 'bold',
   },
+  // Removed placeholderText as we won't render the section at all
 });
 
 // The main PDF Document Component
 function ResumePDF({ personalInfo, education, experience, projects, skills }) {
   const documentTitle = `${personalInfo.name} - Generated Resume`;
 
+  // Helper function to check if an array is valid and non-empty
+  const hasItems = (arr) => Array.isArray(arr) && arr.length > 0;
+
   return (
     <Document title={documentTitle}>
       <Page size='A4' style={styles.page}>
-        {/* --- Header Section --- */}
+        {/* --- Header Section (Always Rendered) --- */}
         <View style={styles.headerContainer}>
           <Text style={styles.name}>{personalInfo.name}</Text>
           <View style={styles.contactInfo}>
@@ -142,102 +136,134 @@ function ResumePDF({ personalInfo, education, experience, projects, skills }) {
               </Link>
             )}
           </View>
-          <Text style={styles.additionalInfo}>
-            {personalInfo.additionalInfo}
-          </Text>
+          {/* Conditionally render additional info only if it exists */}
+          {personalInfo.additionalInfo && (
+            <Text style={styles.additionalInfo}>
+              {personalInfo.additionalInfo}
+            </Text>
+          )}
         </View>
 
-        {/* --- Education Section --- */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Education</Text>
-          {education.map((edu) => (
-            <View key={edu.id} style={styles.educationEntry}>
-              <View style={styles.degreeLine}>
-                <Text>
-                  {edu.degree} - {edu.field}
+        {/* --- Education Section (Conditionally Rendered) --- */}
+        {hasItems(education) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Education</Text>
+            {education.map((edu) => (
+              <View key={edu.id} style={styles.educationEntry}>
+                <View style={styles.degreeLine}>
+                  <Text>
+                    {/* Using defaults for safety, though likely strings */}
+                    {String(edu.degree || '')} - {String(edu.field || '')}
+                  </Text>
+                  <Text>{String(edu.graduation || '')}</Text>
+                </View>
+                <Text style={styles.institutionLine}>
+                  {String(edu.institution || '')}
+                  {edu.faculty ? `, ${String(edu.faculty)}` : ''}{' '}
+                  {edu.additionalInfo ? `- ${edu.additionalInfo}` : ''}
                 </Text>
-                <Text>{edu.graduation}</Text>
               </View>
-              <Text style={styles.institutionLine}>
-                {edu.institution}, {edu.faculty}{' '}
-                {edu.additionalInfo ? `- ${edu.additionalInfo}` : ''}
-              </Text>
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
 
-        {/* --- Experience Section --- */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Experience</Text>
-          {experience.map((exp) => (
-            <View key={exp.id} style={styles.itemEntry}>
-              <View style={styles.itemHeader}>
-                <Text style={styles.itemTitle}>
-                  {exp.title} -{' '}
-                  <Text style={styles.itemCompany}>{exp.company}</Text>
-                </Text>
-                <Text style={styles.itemDates}>
-                  {exp.startDate} – {exp.endDate}
-                </Text>
+        {/* --- Experience Section (Conditionally Rendered) --- */}
+        {hasItems(experience) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Experience</Text>
+            {experience.map((exp) => (
+              <View key={exp.id} style={styles.itemEntry}>
+                <View style={styles.itemHeader}>
+                  <Text style={styles.itemTitle}>
+                    {String(exp.title || '')} -{' '}
+                    <Text style={styles.itemCompany}>
+                      {String(exp.company || '')}
+                    </Text>
+                  </Text>
+                  <Text style={styles.itemDates}>
+                    {String(exp.startDate || '')} – {String(exp.endDate || '')}
+                  </Text>
+                </View>
+                <View style={styles.itemHeader}>
+                  <Text style={styles.itemLocation}>
+                    {exp.productOrTeam ? `${String(exp.productOrTeam)}` : ''}
+                  </Text>
+                  <Text style={styles.itemLocation}>
+                    {String(exp.location || '')}
+                  </Text>
+                </View>
+                {/* Ensure bulletPoints is an array before mapping */}
+                {Array.isArray(exp.bulletPoints) &&
+                  exp.bulletPoints.map((point, index) => (
+                    <Text key={index} style={styles.bulletPoint}>
+                      • {String(point || '')}
+                    </Text>
+                  ))}
               </View>
-              <View style={styles.itemHeader}>
-                {/* Display product/team and location on a second line if needed */}
-                <Text style={styles.itemLocation}>
-                  {exp.productOrTeam ? `${exp.productOrTeam}` : ''}
-                </Text>
-                <Text style={styles.itemLocation}>{exp.location}</Text>
-              </View>
-              {exp.bulletPoints.map((point, index) => (
-                <Text key={index} style={styles.bulletPoint}>
-                  • {point}
-                </Text>
-              ))}
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
 
-        {/* --- Projects Section --- */}
-        {/* Note: Structure is very similar to Experience. Consider refactoring later. */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Projects</Text>
-          {projects.map((proj) => (
-            <View key={proj.id} style={styles.itemEntry}>
-              <View style={styles.itemHeader}>
-                {/* Adjust display based on available fields */}
-                <Text style={styles.itemTitle}>
-                  {proj.company}
-                  {proj.title ? ` - ${proj.title}` : ''}
-                </Text>
-                <Text style={styles.itemDates}>
-                  {proj.startDate} – {proj.endDate}
-                </Text>
+        {/* --- Projects Section (Conditionally Rendered) --- */}
+        {hasItems(projects) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Projects</Text>
+            {projects.map((proj) => (
+              <View key={proj.id} style={styles.itemEntry}>
+                <View style={styles.itemHeader}>
+                  <Text style={styles.itemTitle}>
+                    {String(proj.company || '')}
+                    {proj.title ? ` - ${String(proj.title)}` : ''}
+                  </Text>
+                  <Text style={styles.itemDates}>
+                    {String(proj.startDate || '')} –{' '}
+                    {String(proj.endDate || '')}
+                  </Text>
+                </View>
+                {/* Conditionally render location only if it exists */}
+                {proj.location && (
+                  <View style={styles.itemHeader}>
+                    <Text style={styles.itemLocation}>
+                      {String(proj.location)}
+                    </Text>
+                  </View>
+                )}
+                {/* Ensure bulletPoints is an array before mapping */}
+                {Array.isArray(proj.bulletPoints) &&
+                  proj.bulletPoints.map((point, index) => (
+                    <Text key={index} style={styles.bulletPoint}>
+                      • {String(point || '')}
+                    </Text>
+                  ))}
               </View>
-              <View style={styles.itemHeader}>
-                <Text style={styles.itemLocation}>{proj.location}</Text>
-              </View>
-              {proj.bulletPoints.map((point, index) => (
-                <Text key={index} style={styles.bulletPoint}>
-                  • {point}
-                </Text>
-              ))}
-            </View>
-          ))}
-        </View>
+            ))}
+          </View>
+        )}
 
-        {/* --- Skills Section --- */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Skills</Text>
-          {skills.map((skillCat) => (
-            <View key={skillCat.id} style={styles.skillsCategory}>
-              <Text>
-                <Text style={styles.skillsCategoryTitle}>
-                  {skillCat.category}:{' '}
-                </Text>
-                {skillCat.list.join(', ')}
-              </Text>
-            </View>
-          ))}
-        </View>
+        {/* --- Skills Section (Conditionally Rendered) --- */}
+        {hasItems(skills) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Skills</Text>
+            {skills.map(
+              (skillCat) =>
+                // Ensure category exists and list is a non-empty array
+                skillCat.category &&
+                hasItems(skillCat.list) && (
+                  <View key={skillCat.id} style={styles.skillsCategory}>
+                    <Text>
+                      <Text style={styles.skillsCategoryTitle}>
+                        {String(skillCat.category)}:{' '}
+                      </Text>
+                      {/* Filter out empty strings before joining */}
+                      {skillCat.list
+                        .filter((item) => String(item).trim() !== '')
+                        .join(', ')}
+                    </Text>
+                  </View>
+                )
+            )}
+          </View>
+        )}
       </Page>
     </Document>
   );

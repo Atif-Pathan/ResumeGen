@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import PersonalInfoForm from './PersonalInfoForm.jsx';
 // Import other form components when ready
-// import EducationForm from './EducationForm.jsx';
+import EducationForm from './EducationForm.jsx';
 // import ExperienceForm from './ExperienceForm.jsx';
 // import ProjectsForm from './ProjectsForm.jsx';
 // import SkillsForm from './SkillsForm.jsx';
@@ -18,7 +18,7 @@ const formSections = [
   {
     key: 'education',
     title: 'Education',
-    // component: EducationForm, // Uncomment when ready
+    component: EducationForm,
   },
   {
     key: 'experience',
@@ -44,9 +44,6 @@ function FormPanel(props) {
     setPersonalInfo,
     education,
     setEducation,
-    addEducationItem,
-    removeEducationItem,
-    updateEducationItem,
     experience,
     setExperience,
     addExperienceItem,
@@ -86,12 +83,11 @@ function FormPanel(props) {
     personalInfo: { personalInfo, setPersonalInfo },
     education: {
       education,
-      addEducationItem,
-      removeEducationItem,
-      updateEducationItem,
+      setEducation,
     },
     experience: {
       experience,
+      setExperience,
       addExperienceItem,
       removeExperienceItem,
       updateExperienceItem,
@@ -101,6 +97,7 @@ function FormPanel(props) {
     },
     projects: {
       projects,
+      setProjects,
       addProjectItem,
       removeProjectItem,
       updateProjectItem,
@@ -110,6 +107,7 @@ function FormPanel(props) {
     },
     skills: {
       skills,
+      setSkills,
       addSkillsItem,
       removeSkillsItem,
       updateSkillsItem,
@@ -136,9 +134,7 @@ function FormPanel(props) {
               aria-controls={`content-${section.key}`} // Accessibility attribute
             >
               <span>{section.title}</span>
-              <i
-                className={`fas fa-chevron-down ${isOpen ? 'rotated' : ''}`}
-              ></i>
+              <i className={`fas fa-chevron-down accordion-chevron`}></i>
             </button>
             <div
               id={`content-${section.key}`} // Accessibility attribute
@@ -146,11 +142,10 @@ function FormPanel(props) {
               // Style controls visibility/animation via CSS max-height
             >
               <div className='accordion-content-inner'>
-                {/* Render the specific form component only if it exists and is open */}
-                {FormComponent && isOpen && (
+                {FormComponent && (
                   <FormComponent {...sectionProps[section.key]} />
                 )}
-                {/* Placeholder if component not ready */}
+                {/* Placeholder can remain conditional on isOpen */}
                 {!FormComponent && isOpen && (
                   <p>Form for {section.title} coming soon...</p>
                 )}

@@ -1,26 +1,32 @@
 /* src/styles/FormPanel.css */
 
-/* --- Google Font Import --- */
+/* --- Google Font Import & Variables --- */
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Montserrat:wght@500;600&display=swap');
-
-/* --- CSS Variables --- */
 :root {
   --font-body: 'Nunito Sans', sans-serif;
   --font-heading: 'Montserrat', sans-serif;
-  --color-background: #f8f9fa; /* Light gray background */
-  --color-surface: #ffffff; /* White for panels */
-  --color-text-primary: #343a40; /* Dark gray for text */
-  --color-text-secondary: #6c757d; /* Medium gray for labels/placeholders */
-  --color-border: #dee2e6; /* Light border color */
-  --color-accent: #17a2b8; /* Teal accent color */
-  --color-accent-hover: #138496; /* Darker teal for hover */
-  --color-accent-light: #e8f7f9; /* Very light teal for active bg */
-  --border-radius: 7px;
+  --color-background: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-text-primary: #343a40;
+  --color-text-secondary: #6c757d;
+  --color-border: #dde5ec;
+  /* --- ADDED: Lighter border color --- */
+  --color-border-light: #c3cfdb;
+  --color-accent: #17a2b8; /* Teal */
+  --color-accent-hover: #138496;
+  --color-accent-light: #e8f7f9;
+  /* --- ADDED: Danger colors --- */
+  --color-danger: #dc3545; /* Red for remove */
+  --color-danger-hover: #c82333; /* Darker red */
+  --border-radius: 7px; /* Keep your preferred radius */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --base-font-size: 1rem; /* 16px default */
+  --base-font-size: 1rem;
   --input-padding-y: 0.75rem;
   --input-padding-x: 1rem;
+  --transition-duration: 0.25s; /* Animation duration */
+  --accordion-padding-y: 1.5rem; /* Define padding variable */
+  --accordion-padding-x: 1.5rem;
 }
 
 /* --- Base Styles --- */
@@ -32,19 +38,14 @@
   padding: 0;
 }
 
-body {
-  /* Apply base font to body if needed, or just within the panel */
-  /* font-family: var(--font-body); */
-}
-
 /* --- Accordion Panel Container --- */
 .form-panel-accordion {
   font-family: var(--font-body);
   margin: 1.5rem;
-  max-width: 750px; /* Adjust as needed */
-  width: calc(100% - 3rem); /* Account for margin */
+  max-width: 750px;
+  width: calc(100% - 3rem);
   border-radius: var(--border-radius);
-  overflow: hidden; /* Clip shadows/borders */
+  overflow: hidden;
   box-shadow: var(--shadow-md);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -64,102 +65,103 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 1rem 1.5rem; /* Generous padding */
+  padding: 1rem 1.5rem;
   background-color: var(--color-surface);
   border: none;
   text-align: left;
   font-family: var(--font-heading);
-  font-size: 1.1rem; /* Slightly larger heading */
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text-primary);
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
-
 .accordion-header:hover {
-  background-color: #f1f3f5; /* Subtle hover */
+  background-color: #f1f3f5;
 }
-
 .accordion-item.open > .accordion-header {
-  background-color: var(--color-accent-light); /* Light accent bg when open */
+  background-color: var(--color-accent-light);
   color: var(--color-accent);
 }
 
 /* Chevron Icon */
-.accordion-header i.fa-chevron-down {
+.accordion-chevron {
+  /* Base style */
   font-size: 0.9rem;
   color: var(--color-text-secondary);
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease; /* Animate transform */
 }
-.accordion-item.open > .accordion-header i.fa-chevron-down {
+/* Rotate the icon when the PARENT .accordion-item has .open */
+.accordion-item.open > .accordion-header .accordion-chevron {
   transform: rotate(180deg);
   color: var(--color-accent);
 }
 
-/* --- Accordion Content --- */
+/* --- Accordion Content (Using max-height) --- */
 .accordion-content {
-  display: grid; /* Make this a grid container */
-  grid-template-rows: 0fr; /* Initially collapsed (0 fraction of available space) */
-  transition: grid-template-rows 0.35s ease-in-out; /* Animate this property */
+  max-height: 0; /* Initially hidden */
+  overflow: hidden; /* MUST hide overflowing content */
+  transition: max-height var(--transition-duration) ease-in-out; /* Animate max-height */
   background-color: var(--color-surface);
-  /* overflow: hidden; */ /* Usually not needed here, but keep if horizontal overflow is an issue */
-  will-change: grid-template-rows; /* Performance hint */
+  /* will-change: max-height; */
 }
 
+/* Set large max-height when open */
 .accordion-item.open > .accordion-content {
-  grid-template-rows: 1fr; /* Expand to 1 fraction (take necessary space) */
+  /* Needs to be larger than the tallest possible content */
+  max-height: 2000px;
 }
 
 .accordion-content-inner {
-  /* This needs overflow hidden so its content doesn't spill out */
-  /* during the transition before the row fully collapses. */
-  overflow: hidden;
-  /* min-height: 0; */ /* Might be needed in some complex cases, but often overflow:hidden is enough */
-
-  /* Keep previous padding */
-  padding: 1.5rem 1.5rem 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  /* Keep horizontal padding if needed */
+  padding-left: var(--accordion-padding-x);
+  padding-right: var(--accordion-padding-x);
 }
 
-/* --- Form Section within Accordion Content --- */
+/* --- Form Section (Apply padding here) --- */
 .form-section {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Spacing between grid and actions */
+  gap: 1.5rem;
+  padding-top: var(--accordion-padding-y);
+  padding-bottom: var(--accordion-padding-y);
 }
 
-/* --- Form Grid Layout --- */
+/* --- Form Grid Layout, Group, Input, Actions, Button Styles --- */
 .form-grid-layout {
   display: grid;
-  grid-template-columns: 1fr; /* Default: single column */
-  gap: 1.5rem; /* Gap between grid items */
+  grid-template-columns: 1fr;
+  gap: 1rem;
   margin-bottom: 0;
 }
-
 @media (min-width: 640px) {
   .form-grid-layout {
-    grid-template-columns: repeat(2, 1fr); /* Two columns on wider screens */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* --- Form Group (Label + Input) --- */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Space between label and input */
+  gap: 0.5rem;
   margin-bottom: 0;
 }
-
 .form-group label {
-  font-size: 0.95rem; /* Larger label */
-  font-weight: 600; /* Bolder label */
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--color-text-secondary);
 }
 
-/* --- Form Input Fields --- */
+/* --- MODIFIED: Added select to this rule --- */
 .form-group input[type='text'],
 .form-group input[type='email'],
 .form-group input[type='tel'],
-.form-group input[type='url'] {
+.form-group input[type='url'],
+.form-group select {
+  /* Added select */
   width: 100%;
   padding: var(--input-padding-y) var(--input-padding-x);
   border: 1px solid var(--color-border);
@@ -169,54 +171,176 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-surface);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: var(--shadow-sm); /* Subtle inner shadow */
-}
-
-.form-group input::placeholder {
-  color: #adb5bd; /* Lighter placeholder */
-}
-
-/* Input Focus State - Minimal Border Highlight */
-.form-group input:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.2); /* Soft teal glow */
-}
-
-/* --- Form Actions (Submit Button Container) --- */
-.form-actions {
-  display: flex;
-  justify-content: flex-end; /* Align button to the right */
-}
-
-/* --- Submit Button --- */
-.submit-button {
-  display: inline-flex; /* Align icon and text */
-  align-items: center;
-  gap: 0.6rem; /* Space between icon and text */
-  background-color: var(--color-accent);
-  color: white;
-  padding: 0.4rem 1rem; /* Good padding */
-  border: none;
-  border-radius: var(--border-radius);
-  font-family: var(--font-heading);
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease,
-    box-shadow 0.2s ease; /* Added box-shadow transition */
   box-shadow: var(--shadow-sm);
 }
 
+/* --- ADDED: Styles specific to select dropdown --- */
+.form-group select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%2317a2b8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--input-padding-x) center;
+  background-size: 1em auto;
+  padding-right: calc(var(--input-padding-x) * 2.5 + 1em);
+  cursor: pointer; /* CHANGE 1: Added cursor pointer */
+}
+.form-group select::-ms-expand {
+  display: none;
+}
+.form-group select:required:invalid {
+  color: var(--color-text-secondary);
+}
+.form-group option[value=''][disabled] {
+  display: none;
+}
+.form-group option {
+  color: var(--color-text-primary);
+}
+/* --- END ADDED: Select Styles --- */
+
+.form-group input::placeholder {
+  color: #adb5bd;
+}
+
+/* --- MODIFIED: Added select to focus rule --- */
+.form-group input:focus,
+.form-group select:focus {
+  /* Added select */
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.2);
+}
+
+/* --- Action Containers --- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.form-entry-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  /* CHANGE 4a: Removed border-top */
+  /* border-top: 1px dashed var(--color-border); */
+}
+/* ADDED: Container for Add/Save buttons */
+.section-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 0; /* CHANGE 5: Removed padding-top */
+  border-top: none; /* CHANGE 5: Removed border-top */
+}
+
+/* --- ADDED: Styling for Individual Education Entries --- */
+.form-entry-box {
+  /* CHANGE 4b: Added border-bottom here */
+  border-bottom: 1px dashed var(--color-border-light);
+  padding-bottom: 1rem; /* Add padding below content before line */
+}
+/* CHANGE 4c: Remove border/margin from the very last entry box */
+.form-section > .form-entry-box:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0; /* Remove padding too if no line */
+}
+/* --- END ADDED: Styling for Individual Education Entries --- */
+
+/* --- Button Styles --- */
+
+/* Base styles shared by submit, add, remove */
+/* ADDED: .add-button to shared rule */
+.submit-button,
+.add-button,
+.remove-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease,
+    box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+.submit-button:active,
+.add-button:active,
+.remove-button:active {
+  transform: translateY(1px);
+}
+.submit-button i,
+.add-button i,
+.remove-button i {
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+/* Submit Button (Original styles adjusted for consistency) */
+.submit-button {
+  /* Inherits from shared rule */
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+  /* Keep original padding/gap/font etc. if preferred over shared rule */
+  /* padding: 0.4rem 1rem; */
+  /* gap: 0.6rem; */
+  /* font-size: 0.95rem; */
+}
 .submit-button:hover {
   background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
   box-shadow: var(--shadow-md);
 }
+/* Remove original icon size rule if using the shared one */
+/* .submit-button i { font-size: 1rem; } */
 
-.submit-button:active {
-  transform: translateY(1px); /* Subtle press effect */
+/* --- ADDED: Add Button Styles --- */
+.add-button {
+  /* Inherits from shared rule */
+  background-color: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
 }
+.add-button:hover {
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
+  box-shadow: var(--shadow-sm);
+}
+/* --- END ADDED: Add Button Styles --- */
 
-.submit-button i {
-  font-size: 1rem; /* Adjust icon size if needed */
+/* --- MODIFIED: Remove Button Styles --- */
+.remove-button {
+  /* Inherits from shared rule */
+  background-color: transparent;
+  /* CHANGE 2: Start with secondary text color and light border */
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-light);
+  box-shadow: none;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
 }
+.remove-button:hover {
+  /* CHANGE 2: Hover state */
+  background-color: rgba(220, 53, 69, 0.08);
+  color: var(--color-danger);
+  border-color: rgba(220, 53, 69, 0.2);
+  box-shadow: none;
+}
+/* ADDED: Icon styling for remove button */
+.remove-button i {
+  margin-right: 0.3rem;
+  color: var(--color-text-secondary); /* Default icon color */
+  transition: color 0.2s ease; /* Transition icon color */
+}
+.remove-button:hover i {
+  color: var(--color-danger); /* Icon color matches text on hover */
+}
+/* --- END MODIFIED: Remove Button Styles --- */

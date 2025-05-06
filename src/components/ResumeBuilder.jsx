@@ -5,6 +5,29 @@ import FormPanel from './FormPanel/FormPanel.jsx';
 import '../styles/ResumeBuilder.css';
 
 function ResumeBuilder() {
+  const [updateCounter, setUpdateCounter] = useState(0);
+  // Example for Personal Info (wrap the original setter)
+  const handlePersonalInfoSubmit = (newInfo) => {
+    setPersonalInfo(newInfo);
+    setUpdateCounter((c) => c + 1); // Increment counter
+  };
+  const handleEducationSubmit = (newEducation) => {
+    setEducation(newEducation);
+    setUpdateCounter((c) => c + 1); // Increment counter
+  };
+  const handleExperienceSubmit = (newExperience) => {
+    setExperience(newExperience);
+    setUpdateCounter((c) => c + 1); // Increment counter
+  };
+  const handleProjectsSubmit = (newProjects) => {
+    setProjects(newProjects);
+    setUpdateCounter((c) => c + 1); // Increment counter
+  };
+  const handleSkillsSubmit = (newSkills) => {
+    setSkills(newSkills);
+    setUpdateCounter((c) => c + 1); // Increment counter
+  };
+
   // State variable to hold the data for personal info
   const [personalInfo, setPersonalInfo] = useState({
     name: 'Atif Pathan',
@@ -37,33 +60,33 @@ function ResumeBuilder() {
       additionalInfo: '',
     },
   ]);
-  const addEducationItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      degree: '',
-      field: '',
-      institution: '',
-      faculty: '',
-      graduation: '',
-      additionalInfo: '',
-    };
-    setEducation((prevEducation) => [...prevEducation, newItem]);
-  };
-  const removeEducationItem = (id) => {
-    setEducation((prevEducation) => {
-      return prevEducation.filter((item) => item.id !== id);
-    });
-  };
-  const updateEducationItem = (id, field, value) => {
-    setEducation((prevEducation) => {
-      return prevEducation.map((item) => {
-        if (item.id === id) {
-          return { ...item, [field]: value };
-        }
-        return item;
-      });
-    });
-  };
+  // const addEducationItem = () => {
+  //   const newItem = {
+  //     id: uuidv4(),
+  //     degree: '',
+  //     field: '',
+  //     institution: '',
+  //     faculty: '',
+  //     graduation: '',
+  //     additionalInfo: '',
+  //   };
+  //   setEducation((prevEducation) => [...prevEducation, newItem]);
+  // };
+  // const removeEducationItem = (id) => {
+  //   setEducation((prevEducation) => {
+  //     return prevEducation.filter((item) => item.id !== id);
+  //   });
+  // };
+  // const updateEducationItem = (id, field, value) => {
+  //   setEducation((prevEducation) => {
+  //     return prevEducation.map((item) => {
+  //       if (item.id === id) {
+  //         return { ...item, [field]: value };
+  //       }
+  //       return item;
+  //     });
+  //   });
+  // };
 
   // State variable to hold the data for experience + helpers to update it
   const [experience, setExperience] = useState([
@@ -388,14 +411,14 @@ function ResumeBuilder() {
     <div className='resume-builder'>
       <FormPanel
         personalInfo={personalInfo}
-        setPersonalInfo={setPersonalInfo}
+        setPersonalInfo={handlePersonalInfoSubmit}
         education={education}
-        setEducation={setEducation}
-        addEducationItem={addEducationItem}
-        removeEducationItem={removeEducationItem}
-        updateEducationItem={updateEducationItem}
+        setEducation={handleEducationSubmit}
+        // addEducationItem={addEducationItem}
+        // removeEducationItem={removeEducationItem}
+        // updateEducationItem={updateEducationItem}
         experience={experience}
-        setExperience={setExperience}
+        setExperience={handleExperienceSubmit}
         addExperienceItem={addExperienceItem}
         removeExperienceItem={removeExperienceItem}
         updateExperienceItem={updateExperienceItem}
@@ -403,7 +426,7 @@ function ResumeBuilder() {
         removeExperienceBulletPoint={removeExperienceBulletPoint}
         updateExperienceBulletPoint={updateExperienceBulletPoint}
         projects={projects}
-        setProjects={setProjects}
+        setProjects={handleProjectsSubmit}
         addProjectItem={addProjectItem}
         removeProjectItem={removeProjectItem}
         updateProjectItem={updateProjectItem}
@@ -411,7 +434,7 @@ function ResumeBuilder() {
         removeProjectBulletPoint={removeProjectBulletPoint}
         updateProjectBulletPoint={updateProjectBulletPoint}
         skills={skills}
-        setSkills={setSkills}
+        setSkills={handleSkillsSubmit}
         addSkillsItem={addSkillsItem}
         removeSkillsItem={removeSkillsItem}
         updateSkillsItem={updateSkillsItem}
@@ -420,6 +443,7 @@ function ResumeBuilder() {
       <div className='pdf-preview-panel'>
         {/* Render the PDF Preview component, passing the data states */}
         <PDFPreview
+          updateCounter={updateCounter}
           personalInfo={personalInfo}
           education={education}
           experience={experience}

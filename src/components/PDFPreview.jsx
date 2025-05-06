@@ -1,17 +1,27 @@
+// src/components/PDFPreview.jsx
+import React from 'react';
 import { PDFViewer } from '@react-pdf/renderer';
-import ResumePDF from './ResumePDF.jsx'; // Import the document component
+import ResumePDF from './ResumePDF.jsx';
 
 const styles = {
   viewer: {
-    width: '100%', // Take up all available width
-    height: '100%', // Full height of the viewport
+    width: '100%',
+    height: '100%',
     border: '3px solid #000', // Optional border
   },
 };
 
-function PDFPreview({ personalInfo, education, experience, projects, skills }) {
+// Receive the updateCounter prop
+function PDFPreview({
+  updateCounter,
+  personalInfo,
+  education,
+  experience,
+  projects,
+  skills,
+}) {
   return (
-    <PDFViewer style={styles.viewer} showToolbar={true}>
+    <PDFViewer key={updateCounter} style={styles.viewer} showToolbar={true}>
       <ResumePDF
         personalInfo={personalInfo}
         education={education}
