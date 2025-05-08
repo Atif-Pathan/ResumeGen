@@ -1,11 +1,10 @@
 // src/components/FormPanel/FormPanel.jsx
 import React, { useState } from 'react';
 import PersonalInfoForm from './PersonalInfoForm.jsx';
-// Import other form components when ready
 import EducationForm from './EducationForm.jsx';
 import ExperienceForm from './ExperienceForm.jsx';
 import ProjectForm from './ProjectForm.jsx';
-// import SkillsForm from './SkillsForm.jsx';
+import SkillsForm from './SkillsForm.jsx';
 import '../../styles/FormPanel.css'; // Ensure this path is correct
 
 // Define the sections data
@@ -27,13 +26,13 @@ const formSections = [
   },
   {
     key: 'project',
-    title: 'Project',
+    title: 'Projects',
     component: ProjectForm,
   },
   {
     key: 'skills',
     title: 'Skills',
-    // component: SkillsForm, // Uncomment when ready
+    component: SkillsForm, // Uncomment when ready
   },
 ];
 
@@ -50,10 +49,6 @@ function FormPanel(props) {
     setProject,
     skills,
     setSkills,
-    addSkillsItem,
-    removeSkillsItem,
-    updateSkillsItem,
-    updateSkillList,
   } = props;
 
   // State to track the currently open section, default to the first one
@@ -84,10 +79,6 @@ function FormPanel(props) {
     skills: {
       skills,
       setSkills,
-      addSkillsItem,
-      removeSkillsItem,
-      updateSkillsItem,
-      updateSkillList,
     },
   };
 

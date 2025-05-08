@@ -1,5 +1,5 @@
 // src/components/FormPanel/EducationForm.jsx
-import React, { useState, useEffect } from 'react'; // Import React
+import { useState, useEffect } from 'react'; // Import React
 import { v4 as uuidv4 } from 'uuid';
 
 // Define degree options outside the component for clarity

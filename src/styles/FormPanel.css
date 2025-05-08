@@ -14,7 +14,7 @@
   --color-border-light: #c3cfdb;
   --color-accent: #17a2b8; /* Teal */
   --color-accent-hover: #138496;
-  --color-accent-light: #e8f7f9;
+  --color-accent-light: #dcf7fb;
   /* --- ADDED: Danger colors --- */
   --color-danger: #dc3545; /* Red for remove */
   --color-danger-hover: #c82333; /* Darker red */
@@ -65,7 +65,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1.2rem;
   background-color: var(--color-surface);
   border: none;
   text-align: left;
@@ -396,3 +396,173 @@
   color: var(--color-danger); /* Icon color matches text on hover */
 }
 /* --- END MODIFIED: Remove Button Styles --- */
+
+/* --- SkillsForm Specific Styles (Revised for Button-Like Pills) --- */
+
+/* Header for Category Name input and Add Skill button */
+.skill-category-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.skill-category-header .category-name-group {
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+/* "Add Skill" button in the header - styled like other .add-bullet buttons */
+.skill-category-header .add-skill-button-header {
+  /* It already uses .add-bullet, so it inherits those styles.
+     We might need to adjust its height or vertical alignment if it doesn't match the input.
+     The .add-bullet class has padding: 0.4rem 0.6rem; font-size: 0.85rem;
+     Inputs have padding: var(--input-padding-y) var(--input-padding-x); (0.75rem 1rem)
+     So, we might need to make this button a bit taller.
+  */
+  padding-top: var(--input-padding-y);
+  padding-bottom: var(--input-padding-y);
+  line-height: 1.5; /* Match input line-height for vertical alignment */
+  height: calc(
+    var(--input-padding-y) * 2 + var(--base-font-size) * 1.5 + 2px
+  ); /* Approx match input height */
+  flex-shrink: 0;
+}
+
+.skills-list-editor {
+  margin-top: 0;
+}
+
+.skills-list-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  display: block;
+}
+
+/* Container for the skill pills */
+.skills-list-items-container {
+  display: grid;
+  /*
+    auto-fit: If the items don't fill all tracks, the empty tracks are collapsed.
+    minmax(100px, 1fr): Each item will be at least 100px wide.
+                       If there's more space, items will expand equally (1fr) to fill it.
+                       Adjust 100px based on your desired minimum pill width.
+  */
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.6rem; /* Consistent gap for rows and columns */
+  min-height: 30px; /* For placeholder visibility */
+}
+
+/* Styles for each skill pill */
+.skill-pill {
+  display: flex; /* Key for sizing to content and allowing gap */
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-light);
+  box-shadow: none;
+
+  border-radius: var(
+    --border-radius
+  ); /* Or a more pill-like like 16px if preferred */
+  padding: 0.6rem; /* Adjusted padding for compactness */
+  font-family: var(--font-body); /* Pills use body font for skill text */
+  font-size: 0.9rem; /* Slightly smaller for pills */
+  font-weight: 400; /* Normal weight for skill text */
+  cursor: default; /* The pill itself isn't clickable */
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+  white-space: nowrap; /* Prevent pill from breaking line due to its own content */
+}
+
+/* Hover state for the pill */
+.skill-pill:hover {
+  border-color: #3bbfd9; /* Subtle border change */
+  background-color: #f4fdff;
+}
+
+/* Editing/Focus state for the pill (when textarea inside is focused) */
+.skill-pill:focus-within {
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent);
+  color: var(--color-accent-hover); /* Text color changes to darker accent */
+  box-shadow: 0 0 0 2px rgba(23, 162, 184, 0.2); /* Similar to input focus */
+}
+
+/* Textarea within the skill pill */
+.skill-pill-textarea {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0; /* No internal padding, pill's padding handles it */
+  margin: 0;
+  color: inherit; /* Inherits color from .skill-pill */
+  font-family: inherit; /* Inherits font from .skill-pill */
+  font-size: inherit; /* Inherits font-size from .skill-pill */
+  font-weight: inherit;
+  line-height: 1.4; /* Ensure text is vertically centered */
+  resize: none;
+  overflow: hidden; /* Hides scrollbars, text scrolls with arrow keys */
+  min-width: 40px; /* Minimum space for text */
+  white-space: nowrap; /* Keep text on one line, pill expands */
+  height: calc(0.875rem * 1.4); /* Match line-height and font-size */
+}
+
+.skill-pill-textarea::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+  font-weight: 400;
+}
+.skill-pill:focus-within .skill-pill-textarea::placeholder {
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+/* Remove button within the skill pill */
+.skill-pill-remove-button {
+  background: transparent;
+  border: none;
+  margin: 0; /* No extra margin, gap on .skill-pill handles it */
+  color: inherit; /* Inherit color from .skill-pill */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  width: 1.5rem; /* Small remove button */
+  height: 1.5rem;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  flex-shrink: 0;
+}
+.skill-pill-remove-button i {
+  font-size: 0.8em; /* Small icon */
+  display: block; /* Helps with centering */
+}
+
+/* Hover/Focus states for remove button inside pill */
+.skill-pill .skill-pill-remove-button:hover,
+.skill-pill:focus-within .skill-pill-remove-button:hover {
+  color: var(--color-danger);
+  background-color: rgba(220, 53, 69, 0.1);
+}
+.skill-pill:focus-within .skill-pill-remove-button {
+  color: var(--color-accent-hover); /* Match focused pill text color */
+}
+.skill-pill:focus-within .skill-pill-remove-button:hover {
+  color: var(--color-danger); /* Danger color still wins on hover */
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.empty-skills-placeholder {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+/* --- END SkillsForm Specific Styles --- */

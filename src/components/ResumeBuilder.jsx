@@ -376,36 +376,36 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  const addSkillsItem = () => {
-    const newItem = {
-      id: uuidv4(),
-      category: '',
-      list: [],
-    };
-    setSkills((prevSkills) => [...prevSkills, newItem]);
-  };
-  const removeSkillsItem = (id) => {
-    setSkills((prevSkills) => {
-      return prevSkills.filter((item) => item.id !== id);
-    });
-  };
-  const updateSkillsItem = (id, field, value) => {
-    setSkills((prevSkills) => {
-      return prevSkills.map((item) => {
-        if (item.id === id) {
-          return { ...item, [field]: value };
-        }
-        return item;
-      });
-    });
-  };
-  const updateSkillList = (id, newListArray) => {
-    setSkills((prevSkills) =>
-      prevSkills.map((item) =>
-        item.id === id ? { ...item, list: newListArray } : item
-      )
-    );
-  };
+  // const addSkillsItem = () => {
+  //   const newItem = {
+  //     id: uuidv4(),
+  //     category: '',
+  //     list: [],
+  //   };
+  //   setSkills((prevSkills) => [...prevSkills, newItem]);
+  // };
+  // const removeSkillsItem = (id) => {
+  //   setSkills((prevSkills) => {
+  //     return prevSkills.filter((item) => item.id !== id);
+  //   });
+  // };
+  // const updateSkillsItem = (id, field, value) => {
+  //   setSkills((prevSkills) => {
+  //     return prevSkills.map((item) => {
+  //       if (item.id === id) {
+  //         return { ...item, [field]: value };
+  //       }
+  //       return item;
+  //     });
+  //   });
+  // };
+  // const updateSkillList = (id, newListArray) => {
+  //   setSkills((prevSkills) =>
+  //     prevSkills.map((item) =>
+  //       item.id === id ? { ...item, list: newListArray } : item
+  //     )
+  //   );
+  // };
 
   return (
     <div className='resume-builder'>
@@ -435,10 +435,10 @@ function ResumeBuilder() {
         // updateProjectBulletPoint={updateProjectBulletPoint}
         skills={skills}
         setSkills={handleSkillsSubmit}
-        addSkillsItem={addSkillsItem}
-        removeSkillsItem={removeSkillsItem}
-        updateSkillsItem={updateSkillsItem}
-        updateSkillList={updateSkillList}
+        // addSkillsItem={addSkillsItem}
+        // removeSkillsItem={removeSkillsItem}
+        // updateSkillsItem={updateSkillsItem}
+        // updateSkillList={updateSkillList}
       />
       <div className='pdf-preview-panel'>
         {/* Render the PDF Preview component, passing the data states */}
