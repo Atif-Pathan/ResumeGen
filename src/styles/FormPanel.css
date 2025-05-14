@@ -40,10 +40,9 @@
 
 /* --- Accordion Panel Container --- */
 .form-panel-accordion {
+  min-width: 270px;
+  flex: 1;
   font-family: var(--font-body);
-  margin: 1.5rem;
-  max-width: 750px;
-  width: calc(100% - 3rem);
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: var(--shadow-md);
@@ -250,6 +249,7 @@
 .form-actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 .form-entry-actions {
   margin-top: 1rem;
@@ -258,12 +258,21 @@
   /* CHANGE 4a: Removed border-top */
   /* border-top: 1px dashed var(--color-border); */
 }
+.form-entry-actions > button {
+  margin-top: 0;
+}
 .edit-entry {
+  margin-top: 1rem;
   display: flex;
   gap: 0.5rem;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
 }
+.edit-entry > .form-entry-actions {
+  margin-top: 0;
+}
+
 /* ADDED: Container for Add/Save buttons */
 .section-actions {
   display: flex;
@@ -361,6 +370,7 @@
 /* --- MODIFIED: Remove Button Styles --- */
 .remove-button,
 .add-bullet {
+  margin-top: 1rem;
   /* Inherits from shared rule */
   background-color: transparent;
   /* CHANGE 2: Start with secondary text color and light border */

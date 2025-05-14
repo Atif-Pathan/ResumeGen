@@ -1,15 +1,27 @@
 .resume-builder {
   display: flex;
-  /* background-color: burlywood; */
   width: 100vw;
   min-height: 100vh;
-  padding: 1rem;
-  gap: 1rem;
+  padding: 2rem;
+  gap: 2rem;
 }
 
 .pdf-preview-panel {
-  flex: 1.5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex: 1.1;
+}
+
+@media (max-width: 1025px) {
+  /* Adjust breakpoint as needed (e.g., 768px for tablets, 992px for smaller laptops) */
+  .resume-builder {
+    flex-direction: column; /* Stack items vertically */
+    padding: 1.5rem;
+    gap: 1.5rem;
+  }
+  .pdf-preview-panel {
+    min-width: 270px;
+    background-color: aquamarine;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
 }
