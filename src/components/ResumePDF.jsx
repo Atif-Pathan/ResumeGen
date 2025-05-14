@@ -5,263 +5,415 @@ import {
   View,
   Link,
   StyleSheet,
-  Font,
 } from '@react-pdf/renderer';
 
-// --- Styles remain the same ---
+const PAGE_VERTICAL_MARGIN = 25;
+const PAGE_HORIZONTAL_MARGIN = 30;
+const BULLET = '•';
+
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
-    fontFamily: 'Helvetica',
+    paddingTop: PAGE_VERTICAL_MARGIN,
+    paddingBottom: PAGE_VERTICAL_MARGIN,
+    paddingHorizontal: PAGE_HORIZONTAL_MARGIN,
+    fontFamily: 'Times-Roman',
     fontSize: 10,
-    lineHeight: 1.4,
+    lineHeight: 1.3,
+    color: '#000000',
+    gap: 10,
   },
+  // --- HEADER ---
   headerContainer: {
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 2,
   },
   name: {
-    fontSize: 24, // Adjusted size
-    fontWeight: 'bold',
-    marginBottom: 15, // Adjusted margin
+    fontFamily: 'Times-Bold',
+    fontSize: 32,
+    marginBottom: 26,
   },
-  contactInfo: {
+  contactInfoContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexWrap: 'nowrap', // Try to keep on one line
     justifyContent: 'center',
-    fontSize: 9,
-    marginBottom: 3,
+    alignItems: 'center',
+    fontSize: 10,
+    fontFamily: 'Times-Roman', // Base font for this line
+    color: '#000000', // Base color
   },
   contactItem: {
-    marginHorizontal: 2, // Adjusted spacing
-    textDecoration: 'none',
-    color: 'black',
+    // For non-link text items in the contact line
+    marginHorizontal: 1,
+    textDecoration: 'none', // Ensure no default decoration
   },
-  additionalInfo: {
-    fontSize: 9,
-    marginTop: 0, // Adjusted margin
+  contactLink: {
+    // Specific style for links
+    fontFamily: 'Times-Bold',
+    marginHorizontal: 1,
+    textDecoration: 'underline',
+    color: '#1F4E79', // Standard blue for links
+  },
+  contactSeparator: {
+    fontFamily: 'Times-Bold',
+    marginHorizontal: 1,
+    color: '#333333', // Slightly lighter separator
   },
   section: {
-    marginBottom: 15,
+    flexDirection: 'col',
+    gap: 7,
   },
   sectionTitle: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#000',
-    paddingBottom: 2,
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 14,
+    color: '#000000',
+    borderBottomWidth: 1.5,
+    borderBottomColor: '#000000',
     textTransform: 'uppercase',
+    paddingBottom: 3,
+    marginBottom: -2,
   },
-  educationEntry: {
-    marginBottom: 8,
-  },
-  degreeLine: {
+
+  // --- EDUCATION ---
+  educationEntry: {},
+  educationHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  educationInstitution: {
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12.5,
+  },
+  educationDegree: {
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12.5,
+  },
+  educationField: {
+    fontFamily: 'Times-Italic',
+    fontSize: 11.5,
+  },
+  educationDate: {
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12.5,
+  },
+  educationDetailsLine: {
+    flexDirection: 'row',
+    justifyContent: 'left',
+    gap: 3,
+    marginTop: 2,
+  },
+  educationAdditional: {
+    fontFamily: 'Times-BoldItalic',
+    fontSize: 11.5,
     fontWeight: 'bold',
+    textDecoration: 'underline',
+  },
+  // --- EXPERIENCE & PROJECT COMMON STYLES ---
+  itemEntry: {},
+  itemLine1: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 2,
   },
-  institutionLine: {
-    fontStyle: 'italic',
-  },
-  itemEntry: {
-    marginBottom: 10,
-  },
-  itemHeader: {
+  itemLine1Left: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 3,
+    flexWrap: 'wrap',
   },
-  itemTitle: {
-    fontWeight: 'bold',
+  itemCompany: {
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12.5,
   },
-  itemCompany: {},
-  itemLocation: {
-    fontSize: 9,
-    fontStyle: 'italic',
+  itemProductTeam: {
+    marginTop: 1,
+    fontFamily: 'Helvetica-Oblique',
+    fontSize: 11.5,
   },
   itemDates: {
-    fontSize: 9,
-    fontStyle: 'italic',
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12.5,
+    textAlign: 'right',
+    flexShrink: 0,
   },
-  bulletPoint: {
-    marginLeft: 10,
+  itemLine2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: 2,
   },
-  skillsCategory: {
-    marginBottom: 5,
+  itemLine2Left: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
+  itemTitle: {
+    fontFamily: 'Times-Italic',
+    fontSize: 11.5,
+  },
+  itemTeamSize: {
+    fontFamily: 'Times-Italic',
+    fontSize: 11.5,
+  },
+  itemLocation: {
+    fontFamily: 'Times-Italic',
+    fontSize: 11.5,
+    textAlign: 'right',
+    flexShrink: 0,
+  },
+  bulletPointItem: {
+    // Container for each bullet point (bullet + text)
+    flexDirection: 'row',
+    marginLeft: 2, // Original indent for the line
+    marginTop: 2,
+    alignItems: 'flex-start', // Align bullet with start of multi-line text
+    gap: 10, // Gap between bullet character and text
+  },
+  bulletChar: {
+    // Style for the bullet character itself
+    fontFamily: 'Times-Roman', // Consistent font
+    fontSize: 14, // Slightly larger bullet character
+    marginTop: -2,
+  },
+  bulletText: {
+    // Style for the text content of the bullet point
+    fontFamily: 'Times-Roman',
+    fontSize: 10.5, // Original font size for bullet text
+    flex: 1, // Allow text to wrap and take remaining space
+  },
+  // --- SKILLS ---
+  skillsCategory: {},
   skillsCategoryTitle: {
-    fontWeight: 'bold',
+    fontFamily: 'Helvetica-Bold',
+    fontSize: 12,
   },
-  // Removed placeholderText as we won't render the section at all
+  skillsItems: {
+    fontFamily: 'Times-Roman',
+    fontSize: 10.5,
+  },
+  skillsBulletPoints: {
+    flexDirection: 'column',
+    gap: 2,
+  },
 });
 
-// The main PDF Document Component
 function ResumePDF({ personalInfo, education, experience, project, skills }) {
-  const documentTitle = `${personalInfo.name} - Generated Resume`;
-
-  // Helper function to check if an array is valid and non-empty
+  const documentTitle = `${personalInfo.name || 'Resume'} - Generated Resume`;
   const hasItems = (arr) => Array.isArray(arr) && arr.length > 0;
+  const hasPrimaryContact =
+    personalInfo.phone ||
+    personalInfo.email ||
+    personalInfo.linkedin ||
+    personalInfo.github;
 
   return (
     <Document title={documentTitle}>
       <Page size='A4' style={styles.page}>
-        {/* --- Header Section (Always Rendered) --- */}
         <View style={styles.headerContainer}>
-          <Text style={styles.name}>{personalInfo.name}</Text>
-          <View style={styles.contactInfo}>
+          <Text style={styles.name}>{personalInfo.name || ''}</Text>
+          <View style={styles.contactInfoContainer}>
+            {' '}
+            {/* Changed class name */}
             {personalInfo.phone && (
               <Text style={styles.contactItem}>{personalInfo.phone}</Text>
             )}
             {personalInfo.phone && personalInfo.email && (
-              <Text style={styles.contactItem}>|</Text>
+              <Text style={styles.contactSeparator}> | </Text>
             )}
             {personalInfo.email && (
-              <Text style={styles.contactItem}>{personalInfo.email}</Text>
+              <Text style={styles.contactLink}>{personalInfo.email}</Text>
             )}
-            {personalInfo.linkedin && <Text style={styles.contactItem}>|</Text>}
+            {(personalInfo.phone || personalInfo.email) && // Separator before LinkedIn
+              personalInfo.linkedin && (
+                <Text style={styles.contactSeparator}> | </Text>
+              )}
             {personalInfo.linkedin && (
-              <Link style={styles.contactItem} src={personalInfo.linkedin}>
-                {personalInfo.linkedin.replace('https://', '')}
+              <Link style={styles.contactLink} src={personalInfo.linkedin}>
+                {personalInfo.linkedin.replace(/^https?:\/\//, '')}
               </Link>
             )}
-            {personalInfo.github && <Text style={styles.contactItem}>|</Text>}
+            {personalInfo.linkedin &&
+              personalInfo.github && ( // Separator before GitHub
+                <Text style={styles.contactSeparator}> | </Text>
+              )}
             {personalInfo.github && (
-              <Link style={styles.contactItem} src={personalInfo.github}>
-                {personalInfo.github.replace('https://', '')}
+              <Link style={styles.contactLink} src={personalInfo.github}>
+                {personalInfo.github.replace(/^https?:\/\//, '')}
               </Link>
+            )}
+            {/* Conditional separator and additional info */}
+            {hasPrimaryContact && personalInfo.additionalInfo && (
+              <Text style={styles.contactSeparator}> | </Text>
+            )}
+            {personalInfo.additionalInfo && (
+              <Text style={styles.contactItem}>
+                {''}
+                {/* Use contactItem for consistent styling */}
+                {personalInfo.additionalInfo}
+              </Text>
             )}
           </View>
-          {/* Conditionally render additional info only if it exists */}
-          {personalInfo.additionalInfo && (
-            <Text style={styles.additionalInfo}>
-              {personalInfo.additionalInfo}
-            </Text>
-          )}
         </View>
 
-        {/* --- Education Section (Conditionally Rendered) --- */}
         {hasItems(education) && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Education</Text>
             {education.map((edu) => (
               <View key={edu.id} style={styles.educationEntry}>
-                <View style={styles.degreeLine}>
+                <View style={styles.educationHeader}>
                   <Text>
-                    {/* Using defaults for safety, though likely strings */}
-                    {String(edu.degree || '')} - {String(edu.field || '')}
+                    <Text style={styles.educationInstitution}>
+                      {String(edu.institution || '')}
+                      {edu.faculty ? ` – ${String(edu.faculty)}` : ''}
+                    </Text>
+                    {edu.degree && (
+                      <Text style={styles.educationDegree}>
+                        , {String(edu.degree)}
+                      </Text>
+                    )}
                   </Text>
-                  <Text>{String(edu.graduation || '')}</Text>
+                  <Text style={styles.educationDate}>
+                    {String(edu.graduation || '')}
+                  </Text>
                 </View>
-                <Text style={styles.institutionLine}>
-                  {String(edu.institution || '')}
-                  {edu.faculty ? `, ${String(edu.faculty)}` : ''}{' '}
-                  {edu.additionalInfo ? `- ${edu.additionalInfo}` : ''}
-                </Text>
+                <View style={styles.educationDetailsLine}>
+                  <Text style={styles.educationField}>
+                    {String(edu.field || '')}
+                  </Text>
+                  {edu.additionalInfo && (
+                    <Text style={styles.educationAdditional}>
+                      {''}
+                      {/* Style applied here */}
+                      {String(edu.additionalInfo)}
+                    </Text>
+                  )}
+                </View>
               </View>
             ))}
           </View>
         )}
 
-        {/* --- Experience Section (Conditionally Rendered) --- */}
         {hasItems(experience) && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Experience</Text>
             {experience.map((exp) => (
               <View key={exp.id} style={styles.itemEntry}>
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>
-                    {String(exp.title || '')} -{' '}
+                <View style={styles.itemLine1}>
+                  <View style={styles.itemLine1Left}>
                     <Text style={styles.itemCompany}>
                       {String(exp.company || '')}
                     </Text>
-                  </Text>
+                    {exp.productOrTeam && (
+                      <Text style={styles.itemProductTeam}>
+                        , {String(exp.productOrTeam)}
+                      </Text>
+                    )}
+                  </View>
                   <Text style={styles.itemDates}>
                     {String(exp.startDate || '')} – {String(exp.endDate || '')}
                   </Text>
                 </View>
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemLocation}>
-                    {exp.productOrTeam ? `${String(exp.productOrTeam)}` : ''}
-                  </Text>
+                <View style={styles.itemLine2}>
+                  <View style={styles.itemLine2Left}>
+                    <Text style={styles.itemTitle}>
+                      {String(exp.title || '')}
+                    </Text>
+                    {exp.teamSize && (
+                      <Text style={styles.itemTeamSize}>
+                        {` – team of ${exp.teamSize}`}
+                      </Text>
+                    )}
+                  </View>
                   <Text style={styles.itemLocation}>
                     {String(exp.location || '')}
                   </Text>
                 </View>
-                {/* Ensure bulletPoints is an array before mapping */}
                 {Array.isArray(exp.bulletPoints) &&
-                  exp.bulletPoints.map((point, index) => (
-                    <Text key={index} style={styles.bulletPoint}>
-                      • {String(point || '')}
-                    </Text>
-                  ))}
+                  exp.bulletPoints
+                    .filter((point) => String(point || '').trim() !== '')
+                    .map((point, index) => (
+                      <View key={index} style={styles.bulletPointItem}>
+                        <Text style={styles.bulletChar}>{BULLET}</Text>
+                        <Text style={styles.bulletText}>{String(point)}</Text>
+                      </View>
+                    ))}
               </View>
             ))}
           </View>
         )}
 
-        {/* --- Projects Section (Conditionally Rendered) --- */}
+        {hasItems(skills) && (
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Skills</Text>
+            <View style={styles.skillsBulletPoints}>
+              {skills.map(
+                (skillCat) =>
+                  skillCat.category &&
+                  hasItems(skillCat.list) && (
+                    <View key={skillCat.id} style={styles.skillsCategory}>
+                      <Text style={styles.skillsItems}>
+                        <Text style={styles.skillsCategoryTitle}>
+                          {String(skillCat.category).trim()}:{' '}
+                        </Text>
+                        {skillCat.list
+                          .filter((item) => String(item).trim() !== '')
+                          .join(', ')}
+                      </Text>
+                    </View>
+                  )
+              )}
+            </View>
+          </View>
+        )}
+
         {hasItems(project) && (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Projects</Text>
             {project.map((proj) => (
               <View key={proj.id} style={styles.itemEntry}>
-                <View style={styles.itemHeader}>
-                  <Text style={styles.itemTitle}>
-                    {String(proj.company || '')}
-                    {proj.title ? ` - ${String(proj.title)}` : ''}
-                  </Text>
+                <View style={styles.itemLine1}>
+                  <View style={styles.itemLine1Left}>
+                    <Text style={styles.itemCompany}>
+                      {String(proj.company || '')}
+                    </Text>
+                    {proj.productOrTeam && (
+                      <Text style={styles.itemProductTeam}>
+                        , {String(proj.productOrTeam)}
+                      </Text>
+                    )}
+                  </View>
                   <Text style={styles.itemDates}>
                     {String(proj.startDate || '')} –{' '}
                     {String(proj.endDate || '')}
                   </Text>
                 </View>
-                {/* Conditionally render location only if it exists */}
-                {proj.location && (
-                  <View style={styles.itemHeader}>
-                    <Text style={styles.itemLocation}>
-                      {String(proj.location)}
-                    </Text>
+                {(proj.title || proj.location || proj.teamSize) && (
+                  <View style={styles.itemLine2}>
+                    <View style={styles.itemLine2Left}>
+                      {proj.title && (
+                        <Text style={styles.itemTitle}>
+                          {String(proj.title)}
+                        </Text>
+                      )}
+                      {proj.teamSize && (
+                        <Text style={styles.itemTeamSize}>
+                          {`${proj.title ? ' – ' : ''}team of ${proj.teamSize}`}
+                        </Text>
+                      )}
+                    </View>
+                    {proj.location && (
+                      <Text style={styles.itemLocation}>
+                        {String(proj.location)}
+                      </Text>
+                    )}
                   </View>
                 )}
-                {/* Ensure bulletPoints is an array before mapping */}
                 {Array.isArray(proj.bulletPoints) &&
-                  proj.bulletPoints.map((point, index) => (
-                    <Text key={index} style={styles.bulletPoint}>
-                      • {String(point || '')}
-                    </Text>
-                  ))}
+                  proj.bulletPoints
+                    .filter((point) => String(point || '').trim() !== '')
+                    .map((point, index) => (
+                      <View key={index} style={styles.bulletPointItem}>
+                        <Text style={styles.bulletChar}>{BULLET}</Text>
+                        <Text style={styles.bulletText}>{String(point)}</Text>
+                      </View>
+                    ))}
               </View>
             ))}
-          </View>
-        )}
-
-        {/* --- Skills Section (Conditionally Rendered) --- */}
-        {hasItems(skills) && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Skills</Text>
-            {skills.map(
-              (skillCat) =>
-                // Ensure category exists and list is a non-empty array
-                skillCat.category &&
-                hasItems(skillCat.list) && (
-                  <View key={skillCat.id} style={styles.skillsCategory}>
-                    <Text>
-                      <Text style={styles.skillsCategoryTitle}>
-                        {String(skillCat.category)}:{' '}
-                      </Text>
-                      {/* Filter out empty strings before joining */}
-                      {skillCat.list
-                        .filter((item) => String(item).trim() !== '')
-                        .join(', ')}
-                    </Text>
-                  </View>
-                )
-            )}
           </View>
         )}
       </Page>

@@ -5,9 +5,13 @@ import ResumePDF from './ResumePDF.jsx';
 
 const styles = {
   viewer: {
+    flex: 1,
     width: '100%',
     height: '100%',
-    border: '3px solid #000', // Optional border
+    border: '3px solid #cad2da', // Optional border
+    borderRadius: '8px',
+    overflow: 'hidden',
+    backgroundColor: '#fff',
   },
 };
 
