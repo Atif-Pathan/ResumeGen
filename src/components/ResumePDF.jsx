@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   skillsCategory: {},
   skillsCategoryTitle: {
     fontFamily: 'Helvetica-Bold',
-    fontSize: 12,
+    fontSize: 11.5,
   },
   skillsItems: {
     fontFamily: 'Times-Roman',
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
 });
 
 function ResumePDF({ personalInfo, education, experience, project, skills }) {
-  const documentTitle = `${personalInfo.name || 'Resume'} - Generated Resume`;
+  const documentTitle = `${personalInfo.name || 'Resume'} - Resume`;
   const hasItems = (arr) => Array.isArray(arr) && arr.length > 0;
   const hasPrimaryContact =
     personalInfo.phone ||
