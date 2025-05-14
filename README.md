@@ -1,6 +1,6 @@
 # ResumeGen: A Dynamic Résumé Generator! 📄✨
 
-**Live Link 🚀: [https://resume-gen-tau.vercel.app/]**
+**[Create your own resume here! 🚀](https://resume-gen-tau.vercel.app/)**
 
 ## 💡 Overview
 
