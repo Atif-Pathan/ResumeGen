@@ -60,33 +60,6 @@ function ResumeBuilder() {
       additionalInfo: '',
     },
   ]);
-  // const addEducationItem = () => {
-  //   const newItem = {
-  //     id: uuidv4(),
-  //     degree: '',
-  //     field: '',
-  //     institution: '',
-  //     faculty: '',
-  //     graduation: '',
-  //     additionalInfo: '',
-  //   };
-  //   setEducation((prevEducation) => [...prevEducation, newItem]);
-  // };
-  // const removeEducationItem = (id) => {
-  //   setEducation((prevEducation) => {
-  //     return prevEducation.filter((item) => item.id !== id);
-  //   });
-  // };
-  // const updateEducationItem = (id, field, value) => {
-  //   setEducation((prevEducation) => {
-  //     return prevEducation.map((item) => {
-  //       if (item.id === id) {
-  //         return { ...item, [field]: value };
-  //       }
-  //       return item;
-  //     });
-  //   });
-  // };
 
   // State variable to hold the data for experience + helpers to update it
   const [experience, setExperience] = useState([
@@ -136,80 +109,6 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  // const addExperienceItem = () => {
-  //   const newItem = {
-  //     id: uuidv4(),
-  //     company: '',
-  //     productOrTeam: '',
-  //     title: '',
-  //     teamSize: null,
-  //     location: '',
-  //     startDate: '',
-  //     endDate: '',
-  //     bulletPoints: [],
-  //   };
-  //   setExperience((prevExperience) => [...prevExperience, newItem]);
-  // };
-  // const removeExperienceItem = (id) => {
-  //   setExperience((prevExperience) => {
-  //     return prevExperience.filter((item) => item.id !== id);
-  //   });
-  // };
-  // const updateExperienceItem = (id, field, value) => {
-  //   setExperience((prevExperience) =>
-  //     prevExperience.map((exp) => {
-  //       if (exp.id === id) {
-  //         return { ...exp, [field]: value };
-  //       }
-  //       return exp;
-  //     })
-  //   );
-  // };
-  // const addExperienceBulletPoint = (experienceId) => {
-  //   setExperience((prevExperience) =>
-  //     prevExperience.map((exp) => {
-  //       if (exp.id === experienceId) {
-  //         // Create a new bulletPoints array with an added empty string
-  //         const updatedBulletPoints = [...exp.bulletPoints, ''];
-  //         // Return a new experience object with the updated bulletPoints
-  //         return { ...exp, bulletPoints: updatedBulletPoints };
-  //       }
-  //       return exp; // Return other items unchanged
-  //     })
-  //   );
-  // };
-  // const removeExperienceBulletPoint = (experienceId, bulletIndex) => {
-  //   setExperience((prevExperience) =>
-  //     prevExperience.map((exp) => {
-  //       if (exp.id === experienceId) {
-  //         // Create a new bulletPoints array excluding the one at bulletIndex
-  //         const updatedBulletPoints = exp.bulletPoints.filter(
-  //           (_, index) => index !== bulletIndex // Filter based on index
-  //         );
-  //         // Return a new experience object with the updated bulletPoints
-  //         return { ...exp, bulletPoints: updatedBulletPoints };
-  //       }
-  //       return exp; // Return other items unchanged
-  //     })
-  //   );
-  // };
-  // const updateExperienceBulletPoint = (experienceId, bulletIndex, value) => {
-  //   setExperience((prevExperience) =>
-  //     prevExperience.map((exp) => {
-  //       if (exp.id === experienceId) {
-  //         // Create a new bulletPoints array by mapping over the old one
-  //         const updatedBulletPoints = exp.bulletPoints.map((bullet, index) => {
-  //           // If the index matches the bulletIndex, update the value
-  //           // Otherwise, keep the existing bullet point
-  //           return index === bulletIndex ? value : bullet;
-  //         });
-  //         // Return a new experience object with the updated bulletPoints
-  //         return { ...exp, bulletPoints: updatedBulletPoints };
-  //       }
-  //       return exp; // Return other items unchanged
-  //     })
-  //   );
-  // };
 
   // State variable to hold the data for projects + helpers to update it
   const [project, setProject] = useState([
@@ -223,8 +122,7 @@ function ResumeBuilder() {
       startDate: 'Jun 2024',
       endDate: 'Present',
       bulletPoints: [
-        'Built many projects using JavaScript, HTML, CSS, Webpack, React, Node.js, and APIs, enhancing full-stack development skills.',
-        'Battleship – Weather App – Library – Something2Do – Sign-up Page – Tic-Tac-Toe – Homepage',
+        'Built projects using JavaScript, HTML, CSS, Webpack, React, Node.js, and APIs, enhancing full-stack development skills: Battleship – Weather App – Library – Something2Do – Sign-up Page – Tic-Tac-Toe – Homepage (check github link above)',
       ],
     },
     {
@@ -243,75 +141,6 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  // const addProjectItem = () => {
-  //   const newItem = {
-  //     id: uuidv4(),
-  //     company: '',
-  //     productOrTeam: '',
-  //     title: '',
-  //     teamSize: null,
-  //     location: '',
-  //     startDate: '',
-  //     endDate: '',
-  //     bulletPoints: [],
-  //   };
-  //   setProjects((prevProjects) => [...prevProjects, newItem]);
-  // };
-  // const removeProjectItem = (id) => {
-  //   setProjects((prevProjects) => {
-  //     return prevProjects.filter((proj) => proj.id !== id);
-  //   });
-  // };
-  // const updateProjectItem = (id, field, value) => {
-  //   setProjects((prevProjects) => {
-  //     return prevProjects.map((proj) => {
-  //       return proj.id === id ? { ...proj, [field]: value } : proj;
-  //     });
-  //   });
-  // };
-  // const addProjectBulletPoint = (projectId) => {
-  //   setProjects((prevProjects) => {
-  //     return prevProjects.map((proj) => {
-  //       if (proj.id === projectId) {
-  //         const updatedBulletPoints = [...proj.bulletPoints, ''];
-  //         return { ...proj, bulletPoints: updatedBulletPoints };
-  //       } else {
-  //         // return the project unchanged if it doesn't match
-  //         return proj;
-  //       }
-  //     });
-  //   });
-  // };
-  // const removeProjectBulletPoint = (projectId, bulletIndex) => {
-  //   setProjects((prevProjects) => {
-  //     return prevProjects.map((proj) => {
-  //       if (proj.id === projectId) {
-  //         const updatedBulletPoints = proj.bulletPoints.filter(
-  //           (_, index) => index !== bulletIndex
-  //         );
-  //         return { ...proj, bulletPoints: updatedBulletPoints };
-  //       } else {
-  //         // return the project unchanged if it doesn't match
-  //         return proj;
-  //       }
-  //     });
-  //   });
-  // };
-  // const updateProjectBulletPoint = (projectId, bulletIndex, value) => {
-  //   setProjects((prevProjects) => {
-  //     return prevProjects.map((proj) => {
-  //       if (proj.id === projectId) {
-  //         const updatedBulletPoints = proj.bulletPoints.map((bullet, index) => {
-  //           return index === bulletIndex ? value : bullet;
-  //         });
-  //         return { ...proj, bulletPoints: updatedBulletPoints };
-  //       } else {
-  //         // return the project unchanged if it doesn't match
-  //         return proj;
-  //       }
-  //     });
-  //   });
-  // };
 
   const [skills, setSkills] = useState([
     {
@@ -376,36 +205,6 @@ function ResumeBuilder() {
       ],
     },
   ]);
-  // const addSkillsItem = () => {
-  //   const newItem = {
-  //     id: uuidv4(),
-  //     category: '',
-  //     list: [],
-  //   };
-  //   setSkills((prevSkills) => [...prevSkills, newItem]);
-  // };
-  // const removeSkillsItem = (id) => {
-  //   setSkills((prevSkills) => {
-  //     return prevSkills.filter((item) => item.id !== id);
-  //   });
-  // };
-  // const updateSkillsItem = (id, field, value) => {
-  //   setSkills((prevSkills) => {
-  //     return prevSkills.map((item) => {
-  //       if (item.id === id) {
-  //         return { ...item, [field]: value };
-  //       }
-  //       return item;
-  //     });
-  //   });
-  // };
-  // const updateSkillList = (id, newListArray) => {
-  //   setSkills((prevSkills) =>
-  //     prevSkills.map((item) =>
-  //       item.id === id ? { ...item, list: newListArray } : item
-  //     )
-  //   );
-  // };
 
   return (
     <div className='resume-builder'>
@@ -414,31 +213,12 @@ function ResumeBuilder() {
         setPersonalInfo={handlePersonalInfoSubmit}
         education={education}
         setEducation={handleEducationSubmit}
-        // addEducationItem={addEducationItem}
-        // removeEducationItem={removeEducationItem}
-        // updateEducationItem={updateEducationItem}
         experience={experience}
         setExperience={handleExperienceSubmit}
-        // addExperienceItem={addExperienceItem}
-        // removeExperienceItem={removeExperienceItem}
-        // updateExperienceItem={updateExperienceItem}
-        // addExperienceBulletPoint={addExperienceBulletPoint}
-        // removeExperienceBulletPoint={removeExperienceBulletPoint}
-        // updateExperienceBulletPoint={updateExperienceBulletPoint}
         project={project}
         setProject={handleProjectsSubmit}
-        // addProjectItem={addProjectItem}
-        // removeProjectItem={removeProjectItem}
-        // updateProjectItem={updateProjectItem}
-        // addProjectBulletPoint={addProjectBulletPoint}
-        // removeProjectBulletPoint={removeProjectBulletPoint}
-        // updateProjectBulletPoint={updateProjectBulletPoint}
         skills={skills}
         setSkills={handleSkillsSubmit}
-        // addSkillsItem={addSkillsItem}
-        // removeSkillsItem={removeSkillsItem}
-        // updateSkillsItem={updateSkillsItem}
-        // updateSkillList={updateSkillList}
       />
       <div className='pdf-preview-panel'>
         {/* Render the PDF Preview component, passing the data states */}
